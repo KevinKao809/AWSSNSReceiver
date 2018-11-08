@@ -11,7 +11,7 @@ def hello():
     writeToAppendBlob('ThingsPro Notify')
     return "ThingsPro Notify"
 
-@app.route("/receiver")
+@app.route("/receiver", methods=['POST'])
 def receiver():
     if 'x-amz-sns-message-type' in request.headers:
         AWS_MESSAGE_TYPE = request.headers.get('x-amz-sns-message-type')
