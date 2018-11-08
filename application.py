@@ -22,7 +22,7 @@ def receiver():
                 subscribeURL = postData['SubscribeURL']
                 writeToAppendBlob('SubscribeURL:' + subscribeURL)
                 response = requests.get(subscribeURL)
-                writeToAppendBlob(response)
+                writeToAppendBlob(response.text)
                 return 'OK'
             elif AWS_MESSAGE_TYPE == 'Notification':
                 postData = request.get_json(silent=True)
