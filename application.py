@@ -17,21 +17,21 @@ def receiver():
     try:
         writeToAppendBlob('111')
         if 'x-amz-sns-message-type' in request.headers:
-             writeToAppendBlob('222')
+            writeToAppendBlob('222')
             AWS_MESSAGE_TYPE = request.headers.get('x-amz-sns-message-type')
-             writeToAppendBlob('333')
+            writeToAppendBlob('333')
             if AWS_MESSAGE_TYPE == 'SubscriptionConfirmation':
-                 writeToAppendBlob('444')
+                writeToAppendBlob('444')
                 postData = request.get_json(silent=True)
-                 writeToAppendBlob('555')
+                writeToAppendBlob('555')
                 subscribeURL = postData['SubscribeURL']
-                 writeToAppendBlob('666')
+                writeToAppendBlob('666')
                 writeToAppendBlob('SubscribeURL:' + subscribeURL)
-                 writeToAppendBlob('777')
+                writeToAppendBlob('777')
                 response = requests.get(subscribeURL)
-                 writeToAppendBlob('888')
+                writeToAppendBlob('888')
                 writeToAppendBlob(response.text)
-                 writeToAppendBlob('999')
+                writeToAppendBlob('999')
                 return 'OK'
             elif AWS_MESSAGE_TYPE == 'Notification':
                 postData = request.get_json(silent=True)
