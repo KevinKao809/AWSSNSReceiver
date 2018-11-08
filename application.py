@@ -34,7 +34,7 @@ def receiver():
 
 def writeToAppendBlob(logData):
     blob = 'thingsProNotify' + '/' + datetime.utcnow().strftime("%Y%m%d") + '.log'
-    logData = logData +'\r\n'
+    logData = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S") + logData +'\r\n'
     if storageService.exists('logs',blob) != True:
         storageService.create_blob('logs', blob)
     try:
