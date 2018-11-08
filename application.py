@@ -21,16 +21,16 @@ def receiver():
             writeToAppendBlob('SubscribeURL:' + subscribeURL)
             response = requests.get(subscribeURL)
             writeToAppendBlob(response)
-            return
+            return 'OK'
         elif AWS_MESSAGE_TYPE == 'Notification':
             postData = request.get_json(silent=True)
             writeToAppendBlob('Message:' + postData['Message'])
-            return
+            return 'OK'
         else:
             writeToAppendBlob('AWS Message Type Value Unmatch')
     else:
         writeToAppendBlob('AWS Message Type Not Found')
-        abort()
+        return 'AWS Message Type Not Found'
 
 def writeToAppendBlob(logData):
     blob = 'thingsProNotify' + '/' + datetime.utcnow().strftime("%Y%m%d") + '.log'
