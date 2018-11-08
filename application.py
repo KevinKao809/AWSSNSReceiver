@@ -13,6 +13,7 @@ def hello():
 
 @app.route("/receiver", methods=['POST'])
 def receiver():
+    writeToAppendBlob('Receive...')
     if 'x-amz-sns-message-type' in request.headers:
         AWS_MESSAGE_TYPE = request.headers.get('x-amz-sns-message-type')
         if AWS_MESSAGE_TYPE == 'SubscriptionConfirmation':
@@ -28,13 +29,14 @@ def receiver():
             return 'OK'
         else:
             writeToAppendBlob('AWS Message Type Value Unmatch')
+            return 'OK'
     else:
         writeToAppendBlob('AWS Message Type Not Found')
         return 'AWS Message Type Not Found'
 
 def writeToAppendBlob(logData):
     blob = 'thingsProNotify' + '/' + datetime.utcnow().strftime("%Y%m%d") + '.log'
-    logData = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S") + logData +'\r\n'
+    logData = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S") + '> ' + logData +'\r\n'
     if storageService.exists('logs',blob) != True:
         storageService.create_blob('logs', blob)
     try:
