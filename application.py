@@ -25,7 +25,7 @@ def receiver():
                 writeToAppendBlob(response.text)
                 return 'OK'
             elif AWS_MESSAGE_TYPE == 'Notification':
-                postData = request.get_json(silent=True)
+                postData = json.loads(request.data)
                 writeToAppendBlob('Message:' + postData['Message'])
                 return 'OK'
             else:
